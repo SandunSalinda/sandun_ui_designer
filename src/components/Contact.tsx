@@ -1,202 +1,170 @@
-import React, { useState, useEffect } from 'react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Mail, Phone, MapPin, ArrowUpRight } from 'lucide-react';
 import {
-  FaGithub,
   FaLinkedin,
-  FaTwitter,
   FaDribbble,
   FaBehance,
   FaInstagram
 } from 'react-icons/fa';
 
 const Contact: React.FC = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const contactSection = document.getElementById('contact');
-    if (contactSection) {
-      observer.observe(contactSection);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert("Thank you for your message! I'll get back to you soon.");
-    setFormData({ name: '', email: '', message: '' });
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const socialLinks = [
-    { icon: FaLinkedin, href: 'https://www.linkedin.com/in/sandun-salinda-532416265', label: 'LinkedIn' },
-    { icon: FaDribbble, href: 'https://dribbble.com/yourusername', label: 'Dribbble' },
-    { icon: FaBehance, href: 'https://www.behance.net/sandunsalinda', label: 'Behance' },
-    { icon: FaInstagram, href: 'https://www.instagram.com/sandun_salinda', label: 'Instagram' },
-  ];
-
   return (
-    <section id="contact" className="py-12 sm:py-16 lg:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          className={`text-center mb-8 sm:mb-12 lg:mb-16 transform transition-all duration-1000 ${
-            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
-          }`}
-        >
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-6">
-            Let's Work Together
-          </h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto px-4">
-            Have a project in mind? I'd love to hear about it and discuss how we can bring your vision to life.
-          </p>
-        </div>
+    <footer className="relative bg-gray-900 text-white overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0">
+        <div className="absolute top-10 left-10 w-64 h-64 bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-20 right-20 w-96 h-96 bg-gradient-to-br from-purple-500/10 to-pink-500/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-1/2 left-1/3 w-32 h-32 bg-gradient-to-br from-green-500/10 to-blue-500/10 rounded-full blur-2xl"></div>
+      </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16">
-          {/* Contact Information */}
-          <div
-            className={`transform transition-all duration-1000 ${
-              isVisible ? 'translate-x-0 opacity-100' : '-translate-x-10 opacity-0'
-            }`}
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-20">
+        {/* Main content */}
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 mb-16">
+          {/* Left side - CTA */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="space-y-6"
           >
-            <div className="space-y-6 sm:space-y-8">
-              <div className="bg-gradient-to-br from-blue-50 to-teal-50 rounded-2xl p-6 sm:p-8">
-                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Get in Touch</h3>
+            <h2 className="text-4xl lg:text-6xl font-bold leading-tight">
+              Let's make something{' '}
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+                amazing
+              </span>{' '}
+              together
+            </h2>
+            <p className="text-lg lg:text-xl text-gray-400 max-w-lg">
+              Ready to bring your vision to life? Let's collaborate and create exceptional digital experiences.
+            </p>
+            <motion.a
+              href="mailto:rmsandunsalinda@gmail.com"
+              className="inline-flex items-center space-x-2 bg-white text-gray-900 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 group"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <span>Start a Project</span>
+              <ArrowUpRight size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300" />
+            </motion.a>
+          </motion.div>
 
-                <div className="space-y-4 sm:space-y-6">
-                  <div className="flex items-center space-x-3 sm:space-x-4">
-                    <div className="bg-blue-600 text-white p-2.5 sm:p-3 rounded-full flex-shrink-0">
-                      <Mail size={18} className="sm:w-5 sm:h-5" />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="font-medium text-gray-900 text-sm sm:text-base">Email</p>
-                      <p className="text-gray-600 text-sm sm:text-base break-all">rmsandunsalinda@gmail.com</p>
-                    </div>
-                  </div>
+          {/* Right side - Contact info */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="space-y-8"
+          >
+            <div className="grid sm:grid-cols-2 gap-8">
+              {/* Email */}
+              <div className="space-y-2">
+                <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">Email</h3>
+                <a
+                  href="mailto:rmsandunsalinda@gmail.com"
+                  className="flex items-center space-x-2 text-lg hover:text-blue-400 transition-colors duration-300 group"
+                >
+                  <Mail size={20} className="text-gray-400 group-hover:text-blue-400 transition-colors duration-300" />
+                  <span className="break-all">rmsandunsalinda@gmail.com</span>
+                </a>
+              </div>
 
-                  <div className="flex items-center space-x-3 sm:space-x-4">
-                    <div className="bg-orange-600 text-white p-2.5 sm:p-3 rounded-full flex-shrink-0">
-                      <MapPin size={18} className="sm:w-5 sm:h-5" />
-                    </div>
-                    <div>
-                      <p className="font-medium text-gray-900 text-sm sm:text-base">Location</p>
-                      <p className="text-gray-600 text-sm sm:text-base">Gampaha, Sri Lanka</p>
-                    </div>
-                  </div>
+              {/* Phone */}
+              <div className="space-y-2">
+                <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">Phone</h3>
+                <a
+                  href="tel:+94771234567"
+                  className="flex items-center space-x-2 text-lg hover:text-blue-400 transition-colors duration-300 group"
+                >
+                  <Phone size={20} className="text-gray-400 group-hover:text-blue-400 transition-colors duration-300" />
+                  <span>+94 77 123 4567</span>
+                </a>
+              </div>
+
+              {/* Location */}
+              <div className="space-y-2">
+                <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">Location</h3>
+                <div className="flex items-center space-x-2 text-lg">
+                  <MapPin size={20} className="text-gray-400" />
+                  <span>Gampaha, Sri Lanka</span>
                 </div>
+              </div>
 
-                <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-gray-200">
-                  <h4 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Follow Me</h4>
-                  <div className="flex flex-wrap gap-3 sm:gap-4">
-                    {socialLinks.map((social) => (
-                      <a
-                        key={social.label}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={social.label}
-                        className="bg-white p-2.5 sm:p-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300 hover:scale-110 group"
-                      >
-                        <social.icon className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600 group-hover:text-blue-600 transition-colors duration-300" />
-                      </a>
-                    ))}
-                  </div>
+              {/* Social */}
+              <div className="space-y-4">
+                <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wide">Follow</h3>
+                <div className="flex space-x-4">
+                  <motion.a
+                    href="https://www.linkedin.com/in/sandun-salinda-532416265"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors duration-300"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <FaLinkedin size={18} />
+                  </motion.a>
+                  <motion.a
+                    href="https://dribbble.com/yourusername"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-pink-500 transition-colors duration-300"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <FaDribbble size={18} />
+                  </motion.a>
+                  <motion.a
+                    href="https://www.behance.net/sandunsalinda"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-500 transition-colors duration-300"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <FaBehance size={18} />
+                  </motion.a>
+                  <motion.a
+                    href="https://www.instagram.com/sandun_salinda"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-purple-500 transition-colors duration-300"
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                  >
+                    <FaInstagram size={18} />
+                  </motion.a>
                 </div>
               </div>
             </div>
-          </div>
-
-          {/* Contact Form */}
-          <div
-            className={`transform transition-all duration-1000 ${
-              isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'
-            }`}
-          >
-            <div className="bg-white rounded-2xl shadow-lg p-6 sm:p-8">
-              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-4 sm:mb-6">Send Message</h3>
-
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                    Full Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                    placeholder="Your name"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                    Email Address
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-sm sm:text-base"
-                    placeholder="someone@example.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    className="w-full px-3 py-2.5 sm:px-4 sm:py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none text-sm sm:text-base"
-                    placeholder="Tell me about your project..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-full bg-blue-600 text-white py-3 sm:py-4 px-4 sm:px-6 rounded-xl font-medium hover:bg-blue-700 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center space-x-2 text-sm sm:text-base"
-                >
-                  <Send size={18} className="sm:w-5 sm:h-5" />
-                  <span>Send Message</span>
-                </button>
-              </form>
-            </div>
-          </div>
+          </motion.div>
         </div>
+
+        {/* Bottom section */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="border-t border-gray-800 pt-8"
+        >
+          <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-gradient-to-br from-blue-400 to-purple-400 rounded-lg flex items-center justify-center">
+                <span className="text-white font-bold text-sm">S</span>
+              </div>
+              <span className="font-semibold">Sandun Randhika</span>
+            </div>
+            
+            <p className="text-gray-400 text-sm">
+              © 2024 All rights reserved. Designed & Developed with ❤️
+            </p>
+          </div>
+        </motion.div>
       </div>
-    </section>
+    </footer>
   );
 };
 
